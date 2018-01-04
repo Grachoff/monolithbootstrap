@@ -1,5 +1,4 @@
 target/
-!.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -14,6 +13,11 @@ target/
 *.iws
 *.iml
 *.ipr
+
+### Maven
+.mvn
+mvnw
+mvnw.*
 
 ### NetBeans ###
 nbproject/private/
