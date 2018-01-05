@@ -11,30 +11,19 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Arrays;
 
 @Controller
-public class MainController {
-
-
-    private String activeProfiles;
-
-    @Autowired
-    public MainController(Environment env) {
-        activeProfiles = StringUtils.join(env.getActiveProfiles(), ", ").intern();
-    }
+public class MainController extends AbstractWebController {
 
     @RequestMapping("/")
     public ModelAndView getIndexPage() {
-        ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("activeprofiles", activeProfiles);
-        return modelAndView;
+        return createModelAndView("index");
     }
-
     @RequestMapping("/login")
-    public String getLoginPage() {
-        return "login";
+    public ModelAndView getLoginPage() {
+        return createModelAndView("login");
     }
     @RequestMapping("/main")
-    public String getMainPage() {
-        return "main";
+    public ModelAndView getMainPage() {
+        return createModelAndView("main");
     }
 
 }

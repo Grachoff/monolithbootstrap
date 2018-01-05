@@ -1,7 +1,10 @@
 <html>
+<head>
+    <#include "app-properties.ftl">
+</head>
 <body>
-<h1>HiWorld!!!</h1>
-<div>Active profiles is  ${activeprofiles}</div>
+<h1>Добро пожаловать!</h1>
+<div></div>
 <br/>
 <a href="login">To the Login page</a>
 <br/>

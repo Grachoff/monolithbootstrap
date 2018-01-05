@@ -1,3 +1,0 @@
-var App = {
-        name: 'MonolithBootstrapApplication'
-};
