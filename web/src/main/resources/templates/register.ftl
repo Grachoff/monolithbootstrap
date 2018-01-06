@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <#include "app-properties.ftl">
-    <title>Login page template</title>
+<#include "app-properties.ftl">
+    <title>Register page template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -13,11 +13,11 @@
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 </head>
-<body ng-app="reCaptchaDemo" ng-controller="LoginCtrl">
+<body ng-app="reCaptchaDemo" ng-controller="RegisterCtrl">
 <div class="container" style="margin-top: 60px">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1 class="page-header">Login page template</h1>
+            <h1 class="page-header">Register page template</h1>
             <form style="margin-bottom: 30px" name="form" autocomplete="off" novalidate ng-submit="form.$valid && sendForm(auth)">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
@@ -37,12 +37,12 @@
                            required
                            ng-model="auth.password">
                 </div>
-                <div>
-                    <button type="submit" class="btn btn-default" style="margin-top:30px" ng-disabled="form.$invalid">
-                        Submit
-                    </button>
-                    <a href="register">Register</a>
-                </div>
+                <recaptcha sitekey="6Lfvkz8UAAAAAEr3XI6u2iib5QtEQfj1Yk3iZmPx"
+                           ng-model="auth.recaptchaResponse">
+                </recaptcha>
+                <button type="submit" class="btn btn-default" style="margin-top:30px" ng-disabled="form.$invalid">
+                    Submit
+                </button>
             </form>
         </div>
     </div>

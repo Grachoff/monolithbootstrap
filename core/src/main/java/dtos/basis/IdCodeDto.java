@@ -1,4 +1,4 @@
-package basis;
+package dtos.basis;
 
 import lombok.Data;
 
