@@ -1,6 +1,6 @@
 <html>
 <head>
-    <#include "app-properties.ftl">
+    <#include "common-header.ftl">
 </head>
 <body>
 <h1>Добро пожаловать!</h1>

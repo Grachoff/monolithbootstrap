@@ -7,7 +7,6 @@
     <artifactId>web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
     <name>web-monolith-bootstrap</name>
     <description>Monolith application bootstrap web</description>
 
@@ -23,6 +22,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <application.version.number>${project.version}</application.version.number>
+        <wro4j.version>1.8.0</wro4j.version>
     </properties>
 
     <dependencies>
@@ -105,6 +106,13 @@
             <version>RELEASE</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/ro.isdc.wro4j/wro4j-core -->
+        <dependency>
+            <groupId>ro.isdc.wro4j</groupId>
+            <artifactId>wro4j-core</artifactId>
+            <version>${wro4j.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -1,0 +1,15 @@
+<groups xmlns="http://www.isdc.ro/wro">
+    <group name="all">
+        <!--CSS Libs-->
+        <css>classpath:static/css/bootstrap/bootstrap.css</css>
+        <!--CSS App-->
+        <css>classpath:static/css/app/**.css</css>
+        <!--JS Libs-->
+        <js>classpath:static/js/libs/jquery.min.js</js>
+        <js>classpath:static/js/libs/bootstrap/bootstrap.bundle.js</js>
+        <js>classpath:static/js/libs/angular.js</js>
+        <!--App Libs-->
+        <js>classpath:static/js/app/main.js</js>
+        <js>classpath:static/js/app/**.js</js>
+    </group>
+</groups>
