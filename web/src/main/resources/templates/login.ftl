@@ -6,37 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <#include "common-header.ftl">
 </head>
-<body ng-app="Monolith" ng-controller="LoginCtrl">
-<div class="container" style="margin-top: 60px">
+<body>
+<div class="container loginform-container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1 class="page-header">Login page template</h1>
-            <form style="margin-bottom: 30px" name="form" autocomplete="off" novalidate ng-submit="form.$valid && sendForm(auth)">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email"
-                           class="form-control"
-                           id="exampleInputEmail1"
-                           placeholder="Email"
-                           required
-                           ng-model="auth.email">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password"
-                           class="form-control"
-                           id="exampleInputPassword1"
-                           placeholder="Password"
-                           required
-                           ng-model="auth.password">
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-default" style="margin-top:30px" ng-disabled="form.$invalid">
-                        Submit
-                    </button>
-                    <a href="register">Register</a>
-                </div>
-            </form>
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <h1 class="page-header">Login page template</h1>
+                <#if logout>
+                    <div class="alert alert-success" role="alert">
+                        You have been logged out succesfully.
+                    </div>
+                </#if>
+                <#if error>
+                    <div class="alert alert-danger" role="alert">
+                        Invalid credentials.
+                    </div>
+                </#if>
+
+                <form class="loginform-form" method="post" name="form" autocomplete="off">
+                    <div class="form-group">
+                        <label for="InputUserName">User name</label>
+                        <input type="text"
+                               name="username"
+                               class="form-control"
+                               id="InputUserName"
+                               placeholder="User name"
+                               required">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputPassword">Password</label>
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               id="InputPassword"
+                               placeholder="Password"
+                               required>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary loginform-submit">
+                            Submit
+                        </button>
+                        <a href="register">Register</a>
+                    </div>
+                    <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}" />
+                </form>
+            </div>
         </div>
     </div>
 </div>

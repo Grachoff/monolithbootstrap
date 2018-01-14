@@ -2,7 +2,9 @@
     var AppProperties = {
         name: 'MonolithBootstrapApplication',
         profiles: '${activeprofiles}',
-        version: '${version}'
+        version: '${version}',
+        username: '${username}',
+        roles: [${roles}]
     };
     var metas = document.getElementsByTagName('meta');
 
@@ -19,6 +21,7 @@
 <#else>
 
 <link rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
+<link rel="stylesheet" href="css/app/security/loginform.css"/>
 <script type="text/javascript" src="js/libs/jquery.min.js"></script>
 <script type="text/javascript" src="js/libs/angular.js"></script>
 <script type="text/javascript" src="js/libs/bootstrap/bootstrap.bundle.js"></script>

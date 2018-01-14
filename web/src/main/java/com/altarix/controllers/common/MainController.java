@@ -12,6 +12,7 @@ public class MainController extends AbstractWebController {
     public ModelAndView getIndexPage() {
         return createModelAndView("index");
     }
+
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView getMainPage() {
         return createModelAndView("main");

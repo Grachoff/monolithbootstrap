@@ -7,7 +7,8 @@
 </head>
 <body>
 <h1>Main application page</h1>
-<div>You are logged in.</div>
+<div>Hello, ${username}! You are logged in.</div>
 <br/>
+<a href="/logout">Logout</a>
 </body>
 </html>
