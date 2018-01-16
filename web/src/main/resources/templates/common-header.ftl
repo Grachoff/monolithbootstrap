@@ -30,5 +30,16 @@
 <script type="text/javascript" src="js/app/security/login-controller.js"></script>
 <script type="text/javascript" src="js/app/security/register-controller.js"></script>
 <script type="text/javascript" src="js/app/security/recaptcha-directive.js"></script>
+<script src="js/libs/jwt-decode.min.js"></script>
+<script src="js/client.js"></script>
 
 </#if>
+
+<script>
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var headers = {};
+    headers[header] = token;
+
+    $.ajaxSetup({ headers : headers});
+</script>

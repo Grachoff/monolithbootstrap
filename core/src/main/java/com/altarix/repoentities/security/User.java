@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,8 +23,10 @@ public class User {
     private String firstname;
     private String lastname;
     private String email;
-    private String enabled;
-    private String lastpasswordresetdate;
+    @Column()
+    private Boolean enabled;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastpasswordresetdate;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Role> roles;
 }
