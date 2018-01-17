@@ -2,6 +2,7 @@ package com.altarix.controllers.security;
 
 import com.altarix.dtos.security.JwtAuthenticationRequest;
 import com.altarix.dtos.security.JwtAuthenticationResponse;
+import com.altarix.dtos.security.JwtUser;
 import com.altarix.services.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.altarix.dtos.security.JwtUser;
-
 
 import javax.servlet.http.HttpServletRequest;
 

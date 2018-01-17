@@ -1,9 +1,7 @@
 package com.altarix.configurations;
 
 import com.altarix.services.security.JwtAuthenticationEntryPoint;
-import com.altarix.services.security.StatelessTokenBasedAuthStrategy;
-import com.altarix.services.security.TokenAuthService;
-import com.altarix.services.security.UserService;
+import com.altarix.services.security.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,29 +12,29 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.annotation.Resource;
 
 @SuppressWarnings("SpringJavaAutowiringInspection")
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-//@EnableAuthorizationServer
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    TokenAuthService tokenAuthService;
-    @Autowired
-    UserService userService;
+
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
+
+    @Resource(name="jwtUserDetailsServiceImpl")
+    private UserDetailsService userDetailsService;
 
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
-                .userDetailsService(this.userService)
+                .userDetailsService(this.userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
@@ -44,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
         return new JwtAuthenticationTokenFilter();
@@ -53,13 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-
                 // don't create session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-
                 .authorizeRequests()
                 //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
                 // allow anonymous resource requests
                 .antMatchers(
                         HttpMethod.GET,
@@ -71,9 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js"
                 ).permitAll()
                 .antMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
+                .anyRequest().authenticated();
 
         // Custom JWT based security filter
         httpSecurity
@@ -83,9 +77,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.headers().cacheControl();
     }
 
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder managerBuilder) throws Exception {
-        managerBuilder.userDetailsService(userService);
+        managerBuilder.userDetailsService(userDetailsService);
     }
 }

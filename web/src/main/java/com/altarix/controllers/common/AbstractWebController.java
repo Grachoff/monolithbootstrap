@@ -1,6 +1,6 @@
 package com.altarix.controllers.common;
 
-import com.altarix.dtos.security.User;
+import com.altarix.entities.security.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +38,7 @@ public abstract class AbstractWebController {
             Object user = authentication.getPrincipal();
             if (user instanceof User) {
                 username = ((User) user).getUsername();
-                roles = ((User) user).getAuthorities().stream().map(role -> {return "'"+role.getAuthority()+"'";}).collect(joining(","));
+                roles = ((User) user).getAuthorities().stream().map(role -> {return "'"+role.getName()+"'";}).collect(joining(","));
             } else {
                 username = user.toString();
                 roles = authentication.getAuthorities().stream().map(role -> {return "'"+role.getAuthority()+"'";}).collect(joining(","));

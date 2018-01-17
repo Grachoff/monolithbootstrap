@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JWT Spring Security Demo</title>
+    <title>Monolith Application Bootstrap</title>
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <#include "common-header.ftl">
@@ -11,7 +10,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>JWT Spring Security Demo</h1>
+    <h1>Monolith Application Bootstrap</h1>
 
     <div class="alert alert-danger" id="notLoggedIn">Not logged in!</div>
 
@@ -100,11 +99,5 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<#--<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE="-->
-        <#--crossorigin="anonymous"></script>-->
-<#--<!-- Latest compiled and minified JavaScript &ndash;&gt;-->
-<#--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"-->
-        <#--integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"-->
-        <#--crossorigin="anonymous"></script>-->
 </body>
 </html>

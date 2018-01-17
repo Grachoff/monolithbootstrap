@@ -20,4 +20,5 @@ public class MethodProtectedRestController {
     public ResponseEntity<?> getProtectedGreeting() {
         return ResponseEntity.ok("Greetings from admin protected method!");
     }
+
 }
