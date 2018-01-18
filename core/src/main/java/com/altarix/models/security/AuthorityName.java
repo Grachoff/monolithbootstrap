@@ -1,4 +1,4 @@
-package com.altarix.entities.security;
+package com.altarix.models.security;
 
 public enum AuthorityName {
     ROLE_USER, ROLE_ADMIN
