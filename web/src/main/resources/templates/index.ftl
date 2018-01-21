@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Monolith Application Bootstrap</title>
-    <meta name="_csrf" content="${_csrf.token}"/>
-    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <#--<meta name="_csrf" content="${_csrf.token}"/>-->
+    <#--<meta name="_csrf_header" content="${_csrf.headerName}"/>-->
     <#include "common-header.ftl">
 
 </head>
@@ -69,13 +69,11 @@
                     <pre id="response"></pre>
                 </div>
             </div>
-            <div>
-                <form method="POST" enctype="multipart/form-data" action="/file">
-                    <table>
-                        <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-                        <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-                    </table>
-                </form>
+            <div id="files">
+                <table>
+                    <tr><td>File to upload:</td><td><input type="file" name="file" id="file-for-upload"/></td></tr>
+                    <tr><td></td><td><input type="button" value="Upload" id="upload"/></td></tr>
+                </table>
             </div>
         </div>
     </div>

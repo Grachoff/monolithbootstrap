@@ -61,12 +61,15 @@ $(function () {
     }
 
     function createAuthorizationTokenHeader() {
-        var token = getJwtToken();
-        if (token) {
-            return {"Authorization": "Bearer " + token};
-        } else {
-            return {};
+        var headers = {};
+        if (getJwtToken()) {
+            headers["Authorization"] = buildToken();
         }
+        return headers;
+    }
+
+    function buildToken() {
+        return "Bearer " + getJwtToken();
     }
 
     function showUserInformation() {
@@ -187,4 +190,25 @@ $(function () {
         showTokenInformation();
         showUserInformation();
     }
+
+    $('#upload').on('click', function() {
+        var file_data = $('#file-for-upload').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('file', file_data);
+        $.ajax({
+            url: '/file',
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            headers: createAuthorizationTokenHeader(),
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(script_response){
+                console.log(script_response); // display response from the PHP script, if any
+                $('#files').append('<a href="/file/'+script_response.id+'?Authorization='+buildToken()+'" target="_blank">'+script_response.fileName+'<a>');
+            }
+        });
+    });
+
 });

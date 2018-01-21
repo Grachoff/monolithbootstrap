@@ -36,10 +36,14 @@
 </#if>
 
 <script>
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    var headers = {};
-    headers[header] = token;
-
-    $.ajaxSetup({ headers : headers});
+    function getCommonHeaders(authorizationToken) {
+//        var csrfToken = $("meta[name='_csrf']").attr("content");
+//        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        var headers = {};
+//        headers[csrfHeader] = csrfToken;
+        if (authorizationToken) {
+            headers["Authorization"] = "Bearer " + authorizationToken;
+        }
+        return headers;
+    };
 </script>
