@@ -206,7 +206,7 @@ $(function () {
             type: 'post',
             success: function(script_response){
                 console.log(script_response); // display response from the PHP script, if any
-                $('#files').append('<a href="/file/'+script_response.id+'?Authorization='+buildToken()+'" target="_blank">'+script_response.fileName+'<a>');
+                $('#files').append('<a href="/file/'+script_response.id+'" target="_blank">'+script_response.fileName+'<a>');
             }
         });
     });

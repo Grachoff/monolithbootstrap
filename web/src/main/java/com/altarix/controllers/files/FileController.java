@@ -4,11 +4,16 @@ import com.altarix.entities.files.File;
 import com.altarix.services.files.FileStorageService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
@@ -23,13 +28,15 @@ public class FileController {
     }
 
     @RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
-    public void downloadFile(@PathVariable("id") long id, HttpServletResponse response) throws ExecutionException, InterruptedException, IOException {
+    public ResponseEntity<Resource> downloadFile(@PathVariable("id") long id) throws ExecutionException, InterruptedException, IOException {
         File file = fileStorageService.getFile(id);
-        IOUtils.copy(file.getData(), response.getOutputStream());
-        response.setContentType(file.getMimeType());
-        response.setContentLengthLong(file.getSize());
-        response.setHeader("Content-Disposition", "attachment; filename=\""+ file.getFileName() +"\"");
-        response.flushBuffer();
+        InputStreamResource inputStreamResource = new InputStreamResource(file.getData());
+
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=\""+ file.getFileName() +"\"")
+                .contentLength(file.getSize())
+                .contentType(MediaType.parseMediaType(file.getMimeType()))
+                .body(inputStreamResource);
     }
 
     @RequestMapping(value = "/file/{id}/info", method = RequestMethod.GET)
