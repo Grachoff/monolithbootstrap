@@ -17,13 +17,13 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
-public class FilePersistenseStorageImpl implements FilePersistenseStorage {
+public class FilePersistenceStorageImpl implements FilePersistenceStorage {
 
     @Value("${app.pathToStorage}")
     String pathToStorage;
 
     @Override
-    @Async
+    @Async("fileTaskExecutor")
     public CompletableFuture<File> saveFile(File file, byte[] filedata) {
         Path path = Paths.get(pathToStorage + String.valueOf(file.getId()));
         try {
@@ -43,7 +43,7 @@ public class FilePersistenseStorageImpl implements FilePersistenseStorage {
     }
 
     @Override
-    @Async
+    @Async("fileTaskExecutor")
     public void deleteFile(String filename) throws IOException {
         FileUtils.forceDelete(new java.io.File(pathToStorage + filename));
     }

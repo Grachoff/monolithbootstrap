@@ -14,4 +14,6 @@ public interface FileStorageService {
     File getFile(long id) throws ExecutionException, InterruptedException, IOException;
 
     void deleteFile(long id);
+
+    void removeOldFiles();
 }

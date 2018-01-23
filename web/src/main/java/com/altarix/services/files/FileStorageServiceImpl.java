@@ -5,10 +5,8 @@ import com.altarix.entities.files.File;
 import com.altarix.entities.security.User;
 import com.altarix.models.file.FileState;
 import com.altarix.repositories.files.FileRepository;
-import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,12 +16,14 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+
+import static com.altarix.ConstantsHolder.getTimeFormatter;
 
 @Service
+@Slf4j
 public class FileStorageServiceImpl implements FileStorageService {
     @Autowired
-    FilePersistenseStorage filePersistenseStorage;
+    FilePersistenceStorage filePersistenseStorage;
 
     @Autowired
     FileRepository fileRepository;
@@ -72,6 +72,12 @@ public class FileStorageServiceImpl implements FileStorageService {
         file.setFileState(FileState.MARKED_FOR_DELETE);
         file.setDeleted(new Date());
         fileRepository.save(file);
+    }
+
+    @Override
+    public void removeOldFiles() {
+        log.info("Removing old files...");
+
     }
 
     private void saveFileToRepo(File fileEnity){
