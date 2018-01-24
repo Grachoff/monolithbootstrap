@@ -1,17 +1,16 @@
 package com.altarix;
 
-import com.altarix.repositories.common.LockRepository;
-import com.altarix.services.scheduling.DbLockProvider;
 import net.javacrumbs.shedlock.core.LockProvider;
+import net.javacrumbs.shedlock.provider.jdbctemplate.JdbcTemplateLockProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.sql.DataSource;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
 
@@ -30,8 +29,7 @@ public class MonolithBootstrapApplication {
 	}
 
 	@Bean
-	@Autowired
-	public LockProvider lockProvider(LockRepository lockRepository) {
-		return new DbLockProvider(lockRepository);
+	public LockProvider lockProvider(DataSource dataSource) {
+		return new JdbcTemplateLockProvider(dataSource, "LOСK4SHEDLOCK");
 	}
 }

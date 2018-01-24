@@ -9,11 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -75,9 +77,18 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
+    @Transactional
     public void removeOldFiles() {
-        log.info("Removing old files...");
-
+        log.debug("Removing old files...");
+        List<File> files = fileRepository.findAllByDeletedBeforeAndFileState(new Date(), FileState.MARKED_FOR_DELETE);
+        files.stream().forEach(file -> {
+            try {
+                filePersistenseStorage.deleteFile(file.getFileName());
+            } catch (IOException e) {
+                log.warn("Can't delete file: " + file.getFileName());
+            }
+            file.setFileState(FileState.PERM_DELETED);
+        });
     }
 
     private void saveFileToRepo(File fileEnity){

@@ -1,5 +1,7 @@
 package com.altarix.services.scheduling;
 
+import com.altarix.entities.common.DbLog;
+import com.altarix.repositories.common.DbLogRepository;
 import com.altarix.services.files.FileStorageService;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.core.SchedulerLock;
@@ -15,12 +17,11 @@ import static com.altarix.ConstantsHolder.getTimeFormatter;
 @Slf4j
 @Component
 public class FilePersistenceStorageJanitor {
-
     @Autowired
     FileStorageService fileStorageService;
 
-    @Scheduled(cron = "*/30 * * * * *")
-    @SchedulerLock(name = "scheduledTaskName", lockAtLeastFor = LOCK_PERIOD, lockAtMostFor = LOCK_PERIOD)
+    @Scheduled(cron = "0 1 5 * * *")
+    @SchedulerLock(name = "removeOldFiles", lockAtLeastFor = LOCK_PERIOD, lockAtMostFor = LOCK_PERIOD)
     public void removeOldFiles() {
         fileStorageService.removeOldFiles();
     }

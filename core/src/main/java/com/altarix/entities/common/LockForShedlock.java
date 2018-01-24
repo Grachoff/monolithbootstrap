@@ -5,13 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
+@Table(name = "LOСK4SHEDLOCK")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LockForShadlock {
+public class LockForShedlock {
 
     @Column(length = 64)
     @Id
@@ -21,4 +23,7 @@ public class LockForShadlock {
     private Date lockUntil;
     @Temporal(TemporalType.TIMESTAMP)
     private Date lockedAt;
+
+    @Size(max = 255)
+    private String lockedBy;
 }

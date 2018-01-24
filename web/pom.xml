@@ -139,6 +139,11 @@
             <artifactId>shedlock-spring</artifactId>
             <version>0.17.0</version>
         </dependency>
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-provider-jdbc-template</artifactId>
+            <version>0.17.0</version>
+        </dependency>
     </dependencies>
 
     <build>
