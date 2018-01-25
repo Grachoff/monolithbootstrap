@@ -1,6 +1,7 @@
 package com.altarix.services.files;
 
 import com.altarix.entities.files.File;
+import com.altarix.entities.files.LinkToFileForDownload;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -16,4 +17,10 @@ public interface FileStorageService {
     void deleteFile(long id);
 
     void removeOldFiles();
+
+    LinkToFileForDownload createLinkForDownload(Long id);
+
+    File getFileByToken(String token) throws InterruptedException, ExecutionException, IOException;
+
+    void removeOldLinks();
 }

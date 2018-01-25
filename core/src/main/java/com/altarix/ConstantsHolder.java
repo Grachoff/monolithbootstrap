@@ -10,6 +10,7 @@ public class ConstantsHolder {
     }
 
     public static final int LOCK_PERIOD = 10 * 60 * 1000;
+    public static final int FILE_TOKEN_LENGTH = 128;
 
     public static final String ROLE_PREFIX = "ROLE_";
     public static final long LOGIN_TOKEN_TTL_MILLIS = 1000 * 60 * 60 * 24;

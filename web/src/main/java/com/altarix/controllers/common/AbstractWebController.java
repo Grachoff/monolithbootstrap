@@ -1,10 +1,15 @@
 package com.altarix.controllers.common;
 
+import com.altarix.entities.files.File;
 import com.altarix.entities.security.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,5 +58,15 @@ public abstract class AbstractWebController {
         modelAndView.addObject("version", version);
         modelAndView.addObject("username", username);
         modelAndView.addObject("roles", roles);
+    }
+
+    protected ResponseEntity<Resource> getResponseEntityWithFile(File file) {
+        InputStreamResource inputStreamResource = new InputStreamResource(file.getData());
+
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=\""+ file.getFileName() +"\"")
+                .contentLength(file.getSize())
+                .contentType(MediaType.parseMediaType(file.getMimeType()))
+                .body(inputStreamResource);
     }
 }

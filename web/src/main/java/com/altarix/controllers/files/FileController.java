@@ -1,6 +1,8 @@
 package com.altarix.controllers.files;
 
+import com.altarix.controllers.common.AbstractWebController;
 import com.altarix.entities.files.File;
+import com.altarix.entities.files.LinkToFileForDownload;
 import com.altarix.services.files.FileStorageService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,25 +20,25 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-public class FileController {
+public class FileController extends AbstractWebController {
     @Autowired
     private FileStorageService fileStorageService;
+
 
     @RequestMapping(value = "/file", method = RequestMethod.POST)
     public File singleFileUpload(@RequestParam("file") MultipartFile file) throws ExecutionException, InterruptedException {
         return fileStorageService.singleFileUpload(file);
     }
 
-    @RequestMapping(value = "/file/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Resource> downloadFile(@PathVariable("id") long id) throws ExecutionException, InterruptedException, IOException {
-        File file = fileStorageService.getFile(id);
-        InputStreamResource inputStreamResource = new InputStreamResource(file.getData());
+    @RequestMapping(value = "/file/{id}/createLinkForDownload/}", method = RequestMethod.POST)
+    public LinkToFileForDownload createLinkForDownload(@PathVariable("id") Long id) throws ExecutionException, InterruptedException {
+        return fileStorageService.createLinkForDownload(id);
+    }
 
-        return ResponseEntity.ok()
-                .header("Content-Disposition", "attachment; filename=\""+ file.getFileName() +"\"")
-                .contentLength(file.getSize())
-                .contentType(MediaType.parseMediaType(file.getMimeType()))
-                .body(inputStreamResource);
+    @RequestMapping(value = "/file/download/{token}", method = RequestMethod.GET)
+    public ResponseEntity<Resource> downloadFile(@PathVariable("token") String token) throws ExecutionException, InterruptedException, IOException {
+        File file = fileStorageService.getFileByToken(token);
+        return getResponseEntityWithFile(file);
     }
 
     @RequestMapping(value = "/file/{id}/info", method = RequestMethod.GET)

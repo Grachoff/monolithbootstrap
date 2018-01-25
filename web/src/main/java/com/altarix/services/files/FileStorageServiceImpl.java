@@ -2,14 +2,17 @@ package com.altarix.services.files;
 
 import com.altarix.dtos.security.JwtUser;
 import com.altarix.entities.files.File;
+import com.altarix.entities.files.LinkToFileForDownload;
 import com.altarix.entities.security.User;
 import com.altarix.models.file.FileState;
 import com.altarix.repositories.files.FileRepository;
+import com.altarix.repositories.files.LinkToFileForDownloadRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
@@ -29,6 +32,9 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     @Autowired
     FileRepository fileRepository;
+
+    @Autowired
+    LinkToFileForDownloadRepository linkToFileForDownloadRepository;
 
     @Override
     public File singleFileUpload(MultipartFile file) throws ExecutionException, InterruptedException {
@@ -61,6 +67,7 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public File getFile(long id) throws IOException, ExecutionException, InterruptedException {
         File file = fileRepository.findOne(id);
         if (file.getDeleted() != null || !FileState.READY.equals(file.getFileState())) throw new FileNotFoundException("File not found: " + String.valueOf(id));
@@ -79,8 +86,10 @@ public class FileStorageServiceImpl implements FileStorageService {
     @Override
     @Transactional
     public void removeOldFiles() {
-        log.debug("Removing old files...");
+        log.info("Removing old files...");
         List<File> files = fileRepository.findAllByDeletedBeforeAndFileState(new Date(), FileState.MARKED_FOR_DELETE);
+        if (CollectionUtils.isEmpty(files)) return;
+
         files.stream().forEach(file -> {
             try {
                 filePersistenseStorage.deleteFile(file.getFileName());
@@ -89,8 +98,32 @@ public class FileStorageServiceImpl implements FileStorageService {
             }
             file.setFileState(FileState.PERM_DELETED);
         });
+        fileRepository.save(files);
     }
 
+    @Override
+    @Transactional
+    public LinkToFileForDownload createLinkForDownload(Long id) {
+        LinkToFileForDownload linkToFileForDownload = LinkToFileForDownload.createLink(id);
+        linkToFileForDownloadRepository.save(linkToFileForDownload);
+        return linkToFileForDownload;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public File getFileByToken(String token) throws InterruptedException, ExecutionException, IOException {
+        LinkToFileForDownload linkToFileForDownload = linkToFileForDownloadRepository.findOne(token);
+        if (linkToFileForDownload.getUntilAlive().before(new Date())) throw new FileNotFoundException("File not found!");
+        return getFile(linkToFileForDownload.getFile().getId());
+    }
+
+    @Override
+    @Transactional
+    public void removeOldLinks() {
+        linkToFileForDownloadRepository.deleteAllByUntilAliveIsBefore(new Date());
+    }
+
+    @Transactional
     private void saveFileToRepo(File fileEnity){
         fileRepository.save(fileEnity);
     }

@@ -24,5 +24,6 @@ public class FilePersistenceStorageJanitor {
     @SchedulerLock(name = "removeOldFiles", lockAtLeastFor = LOCK_PERIOD, lockAtMostFor = LOCK_PERIOD)
     public void removeOldFiles() {
         fileStorageService.removeOldFiles();
+        fileStorageService.removeOldLinks();
     }
 }
