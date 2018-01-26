@@ -1,109 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html manifest="">
 <head>
+    <script>
+        var AppProperties = {
+            name: 'MonolithBootstrapApplication',
+            profiles: '${activeprofiles}',
+            version: '${version}',
+        };
+        var metas = document.getElementsByTagName('meta');
+
+        for (var i=0; i<metas.length; i++) {
+            if (metas[i].getAttribute("name")) AppProperties[metas[i].getAttribute("name")] = metas[i].getAttribute("content");
+        }
+        console.log(AppProperties);
+    </script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="UTF-8">
-    <title>Monolith Application Bootstrap</title>
-    <#--<meta name="_csrf" content="${_csrf.token}"/>-->
-    <#--<meta name="_csrf_header" content="${_csrf.headerName}"/>-->
-    <#include "common-header.ftl">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Monolith</title>
+
+    <!--
+    <script type="text/javascript">
+        var Ext = Ext || {}; // Ext namespace won't be defined yet...
+
+        // This function is called by the Microloader after it has performed basic
+        // device detection. The results are provided in the "tags" object. You can
+        // use these tags here or even add custom tags. These can be used by platform
+        // filters in your manifest or by platformConfig expressions in your app.
+        //
+        Ext.beforeLoad = function (tags) {
+            var s = location.search,  // the query string (ex "?foo=1&bar")
+                profile;
+
+            // For testing look for "?classic" or "?modern" in the URL to override
+            // device detection default.
+            //
+            if (s.match(/\bclassic\b/)) {
+                profile = 'classic';
+            }
+            else if (s.match(/\bmodern\b/)) {
+                profile = 'modern';
+            }
+            else {
+                profile = tags.desktop ? 'classic' : 'modern';
+                //profile = tags.phone ? 'modern' : 'classic';
+            }
+
+            Ext.manifest = profile; // this name must match a build profile name
+
+            // This function is called once the manifest is available but before
+            // any data is pulled from it.
+            //
+            //return function (manifest) {
+                // peek at / modify the manifest object
+            //};
+        };
+    </script>
+    -->
+
+    <!-- The line below must be kept intact for Sencha Cmd to build your application -->
+    <script id="microloader" data-app="d768af71-ad4f-49f9-b43c-d90b87267bcf" type="text/javascript" src="bootstrap.js"></script>
 
 </head>
-<body>
-<div class="container">
-    <h1>Monolith Application Bootstrap</h1>
-
-    <div class="alert alert-danger" id="notLoggedIn">Not logged in!</div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-default" id="login">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Login</h3>
-                </div>
-                <div class="panel-body">
-                    <form id="loginForm">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="username"
-                                   required name="username">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="exampleInputPassword1"
-                                   placeholder="password" required name="password">
-                        </div>
-                        <div class="well">
-                            Try one of the following logins
-                            <ul>
-                                <li>admin & admin</li>
-                                <li>user & password</li>
-                                <li>disabled & password</li>
-                            </ul>
-                        </div>
-                        <button type="submit" class="btn btn-default">login</button>
-                    </form>
-                </div>
-            </div>
-
-            <div id="userInfo">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Authenticated user</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="userInfoBody"></div>
-                        <button type="button" class="btn btn-default" id="logoutButton">logout</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="btn-group" role="group" aria-label="..." style="margin-bottom: 16px;">
-                <button type="button" class="btn btn-default" id="exampleServiceBtn">call example service</button>
-                <button type="button" class="btn btn-default" id="adminServiceBtn">call admin protected service</button>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Response:</h3>
-                </div>
-                <div class="panel-body">
-                    <pre id="response"></pre>
-                </div>
-            </div>
-            <div id="files">
-                <table>
-                    <tr><td>File to upload:</td><td><input type="file" name="file" id="file-for-upload"/></td></tr>
-                    <tr><td></td><td><input type="button" value="Upload" id="upload"/></td></tr>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div id="loggedIn" class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Token information</h3>
-                </div>
-                <div class="panel-body" id="loggedInBody"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="loginErrorModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Login unsuccessful</h4>
-            </div>
-            <div class="modal-body"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-</body>
+<body></body>
 </html>

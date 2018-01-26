@@ -63,6 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/*.html",
                         "/favicon.ico",
                         "/**/*.html",
+                        "/**/*.json",
+                        "/**/*.woff*",
+                        "/**/*.ttf",
                         "/file/download/*",
                         "/**/*.css",
                         "/**/*.js"
