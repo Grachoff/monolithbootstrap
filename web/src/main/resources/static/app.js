@@ -1,1 +1,0 @@
-Ext.application('Monolith.Application');

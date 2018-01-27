@@ -21,29 +21,11 @@
 <#else>
 
 <link rel="stylesheet" href="css/bootstrap/bootstrap.css"/>
-<link rel="stylesheet" href="css/app/security/loginform.css"/>
+
 <script type="text/javascript" src="js/libs/jquery.min.js"></script>
-<script type="text/javascript" src="js/libs/angular.js"></script>
 <script type="text/javascript" src="js/libs/bootstrap/bootstrap.bundle.js"></script>
 
-<script type="text/javascript" src="js/app/main.js"></script>
-<script type="text/javascript" src="js/app/security/login-controller.js"></script>
-<script type="text/javascript" src="js/app/security/register-controller.js"></script>
-<script type="text/javascript" src="js/app/security/recaptcha-directive.js"></script>
 <script src="js/libs/jwt-decode.min.js"></script>
-<script src="js/client.js"></script>
+<script src="js/app/client.js"></script>
 
 </#if>
-
-<script>
-    function getCommonHeaders(authorizationToken) {
-//        var csrfToken = $("meta[name='_csrf']").attr("content");
-//        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-        var headers = {};
-//        headers[csrfHeader] = csrfToken;
-        if (authorizationToken) {
-            headers["Authorization"] = "Bearer " + authorizationToken;
-        }
-        return headers;
-    };
-</script>
