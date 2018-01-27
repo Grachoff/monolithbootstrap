@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-@Configuration
+//@Configuration
 public class Wro4jConfig {
     private static final List<String> OTHER_WRO_PROPS = Collections.unmodifiableList(Arrays.asList(
             ConfigurableProcessorsFactory.PARAM_PRE_PROCESSORS,

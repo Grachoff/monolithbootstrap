@@ -1,26 +1,28 @@
-var app, viewport;
+/**
+ * The main application class. An instance of this class is created by app.js when it
+ * calls Ext.application(). This is the ideal place to handle application launch and
+ * initialization details.
+ */
 Ext.define('Monolith.Application', {
     extend: 'Ext.app.Application',
-    name: 'Monolith',
-    autoCreateViewport: 'Monolith.view.Main',
-    requires: [
-        'Ext.*',
-        'Monolith.*'   // tell Cmd to include all app classes
-    ],
-    launch: function () {
-        // Ext.Msg.alert('Monolith App', 'Welcome to Monolith Application.');
-        app = Monolith.getApplication();
-        var form = Ext.create('Monolith.view.main.Main');
-        var form2 = Ext.create('Monolith.view.main.Second');
-        var west=Ext.create('Ext.Panel', {
-            title: 'Правая панель',
-            width: 450,
-            region: 'west',
-            items: [form, form2]
-        });
-        Ext.Viewport.add(west);
 
+    name: 'Monolith',
+
+    quickTips: false,
+    platformConfig: {
+        desktop: {
+            quickTips: true
+        }
     },
+
+    stores: [
+        // TODO: add global / shared stores here
+    ],
+
+    launch: function () {
+        // TODO - Launch the application
+    },
+
     onAppUpdate: function () {
         Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
             function (choice) {
