@@ -8,7 +8,8 @@ Ext.define('Monolith.view.main.Main', {
 
         'Monolith.controller.main.MainController',
         'Monolith.model.main.MainModel',
-        'Monolith.view.main.List'
+        'Monolith.view.main.List',
+        'Monolith.view.main.LoginBlock'
     ],
 
     controller: 'main',
@@ -16,23 +17,10 @@ Ext.define('Monolith.view.main.Main', {
 
     ui: 'navigation',
 
-    tabBarHeaderPosition: 1,
+    tabBarHeaderPosition: 0,
     titleRotation: 0,
     tabRotation: 0,
-
-    header: {
-        layout: {
-            align: 'stretchmax'
-        },
-        title: {
-            bind: {
-                text: '{name}'
-            },
-            flex: 0
-        },
-        iconCls: 'fa-th-list'
-    },
-
+    header: {items: [{id: "LoginButton", xtype: 'loginblock'}]},
     tabBar: {
         flex: 1,
         layout: {
@@ -40,7 +28,6 @@ Ext.define('Monolith.view.main.Main', {
             overflowHandler: 'none'
         }
     },
-
     responsiveConfig: {
         tall: {
             headerPosition: 'top'
@@ -57,7 +44,8 @@ Ext.define('Monolith.view.main.Main', {
             responsiveConfig: {
                 wide: {
                     iconAlign: 'left',
-                    textAlign: 'left'
+                    textAlign: 'left',
+                    width: 240
                 },
                 tall: {
                     iconAlign: 'top',
@@ -72,15 +60,15 @@ Ext.define('Monolith.view.main.Main', {
         title: 'Home',
         iconCls: 'fa-home',
         // The following grid shares a store with the classic version's grid as well!
-        items: [{
-            xtype: 'mainlist'
-        }]
+        bind: {
+            html: '{mainText}'
+        }
     }, {
         title: 'Users',
         iconCls: 'fa-user',
-        bind: {
-            html: '{loremIpsum}'
-        }
+        items: [{
+            xtype: 'mainlist'
+        }]
     }, {
         title: 'Groups',
         iconCls: 'fa-users',

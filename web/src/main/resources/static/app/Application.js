@@ -16,11 +16,11 @@ Ext.define('Monolith.Application', {
     },
 
     stores: [
-        // TODO: add global / shared stores here
+        'Monolith.store.user.Auth'
     ],
 
     launch: function () {
-        // TODO - Launch the application
+
     },
 
     onAppUpdate: function () {

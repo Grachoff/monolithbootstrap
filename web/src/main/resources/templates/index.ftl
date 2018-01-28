@@ -12,7 +12,6 @@
         for (var i=0; i<metas.length; i++) {
             if (metas[i].getAttribute("name")) AppProperties[metas[i].getAttribute("name")] = metas[i].getAttribute("content");
         }
-        console.log(AppProperties);
     </script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="UTF-8">

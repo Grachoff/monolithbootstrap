@@ -1,4 +1,3 @@
-
 Ext.define('Monolith.controller.main.MainController', {
     extend: 'Ext.app.ViewController',
 

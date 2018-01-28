@@ -9,7 +9,8 @@ Ext.application({
     extend: 'Monolith.Application',
 
     requires: [
-        'Monolith.view.main.Main'
+        'Monolith.view.main.Main',
+        'Monolith.view.user.LoginWindow'
     ],
 
     // The name of the initial view to create. With the classic toolkit this class

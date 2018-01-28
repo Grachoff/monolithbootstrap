@@ -207,6 +207,8 @@
     "js": [
         {
             "path": "${framework.dir}/build/ext-all-rtl-debug.js"
+        },{
+            "path": "js/jwt-decode.min.js"
         },
         {
             "path": "app.js",
