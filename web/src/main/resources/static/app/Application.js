@@ -15,14 +15,27 @@ Ext.define('Monolith.Application', {
         }
     },
 
-    stores: [
-        'Monolith.store.user.Auth'
-    ],
-
     launch: function () {
-
+        Ext.appInstance = this;
     },
-
+    setAuth: function(auth) {
+        localStorage.setItem('auth', auth ? JSON.stringify(auth) : null);
+        this.changeApplicationState();
+    },
+    removeAuth: function () {
+        localStorage.removeItem('auth');
+        this.changeApplicationState();
+    },
+    getAuth: function() {
+        var auth = localStorage.getItem('auth');
+        return auth ? JSON.parse(auth) : null;
+    },
+    changeApplicationState: function () {
+        var headers = {};
+        var auth = this.getAuth();
+        if (auth) headers["Authorization"] = "Bearer " + auth.jwtToken;
+        Ext.Ajax.setDefaultHeaders(headers);
+    },
     onAppUpdate: function () {
         Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
             function (choice) {

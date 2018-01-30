@@ -5,10 +5,13 @@ Ext.define('Monolith.view.main.LoginBlock', {
     margin: '10px 10px',
     listeners: {
         added: function(a, b, c) {
-            this.changeState(false);
-            this.authStore = Ext.getStore('Monolith.store.user.Auth');
+            Ext.asap(this.init, this);
         }
 
+    },
+    init: function() {
+        this.changeState();
+        Ext.appInstance.authChanged = this.changeState.bind(this);
     },
     openLoginWindow: function () {
         this.loginWindow = Ext.create('Monolith.view.user.LoginWindow');
@@ -17,16 +20,25 @@ Ext.define('Monolith.view.main.LoginBlock', {
         alert("Not implemented yet");
     },
     openProfileWindow: function () {
-        alert("Not implemented yet");
+        Ext.Ajax.request( {
+            url: '/user'
+        }).then(function (response, opts) {
+            var obj = Ext.decode(response.responseText);
+            console.dir(obj);
+        });
     },
     doLogout: function () {
-        alert("Not implemented yet");
-    },
-    changeState: function (isLoggedIn) {
-        var items = isLoggedIn ?
+        Ext.appInstance.removeAuth();
+        Ext.appInstance.authChanged();
+        Ext.Msg.alert('Logout', 'You has been logged out.');
+ },
+    changeState: function () {
+        var auth = Ext.appInstance.getAuth();
+        Ext.appInstance.changeApplicationState();
+        var items = auth ?
             [
                 {iconCls: 'x-fa fa-times-circle', text: 'Log out', handler: this.doLogout},
-                {iconCls: 'x-fa fa-address-card', text: 'Profile', handler: this.openProfileWindow}
+                {iconCls: 'x-fa fa-user', text: 'Profile', handler: this.openProfileWindow}
             ]
             :
             [
@@ -35,6 +47,6 @@ Ext.define('Monolith.view.main.LoginBlock', {
             ];
 
         this.setMenu({items: items});
-        this.setText('You are not logged in');
+        this.setText(auth ? auth.username : 'You are not logged in');
     },
 });

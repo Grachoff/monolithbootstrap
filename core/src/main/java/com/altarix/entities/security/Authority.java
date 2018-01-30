@@ -2,6 +2,7 @@ package com.altarix.entities.security;
 
 import com.altarix.models.security.AuthorityName;
 import lombok.Data;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "AUTHORITY")
 @Data
+@Immutable
 public class Authority {
 
     @Id

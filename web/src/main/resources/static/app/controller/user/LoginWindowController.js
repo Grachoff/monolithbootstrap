@@ -3,25 +3,33 @@ Ext.define('Monolith.controller.user.LoginWindowController', {
     alias: 'controller.login',
     stores: ['Monolith.store.user.Auth'],
     init: function() {
-        this.authStore = Ext.getStore('Monolith.store.user.Auth');
-
-        console.log(this.authStore);
+        this.username = this.getView().down('[name=username]');
+        this.password = this.getView().down('[name=password]');
     },
     onLoginClick: function() {
-        var user = Ext.create('Monolith.model.user.Auth', {
-            username: '1',
-            jwtToken: '2'
-        });
-        this.authStore.add(user);
-        this.authStore.sync();
-
-        // Remove Login Window
+        this.doLogin(this.username.getValue(), this.password.getValue());
+    },
+    loginSuccess: function (response, opts) {
+        var obj = Ext.decode(response.responseText);
+        Ext.appInstance.setAuth(
+            {
+                username: this.username.getValue(),
+                jwtToken: obj.token
+            });
+        Ext.appInstance.authChanged();
+        this.getView().enable();
         this.getView().destroy();
-
-        // Add the main view to the viewport
-        Ext.create({
-            xtype: 'app-main'
-        });
-
+    },
+    loginFailure: function (response, opts) {
+        Ext.Msg.alert('Fail', 'Bad credentials!');
+        this.getView().enable();
+    },
+    doLogin: function (username, password) {
+        this.getView().disable();
+        Ext.Ajax.request( {
+            url: '/auth',
+            method: 'POST',
+            jsonData: {username: username, password: password}
+        }).then(this.loginSuccess.bind(this), this.loginFailure.bind(this));
     }
 });
