@@ -4,7 +4,6 @@ Ext.define('Monolith.view.user.LoginWindow', {
 
     requires: [
         'Monolith.controller.user.LoginWindowController',
-        'Monolith.model.user.Auth',
         'Ext.form.Panel'
     ],
 

@@ -55,9 +55,9 @@ Ext.define('Monolith.view.main.Main', {
             }
         }
     },
-
     items: [{
         title: 'Home',
+        tabName: 'home',
         iconCls: 'fa-home',
         // The following grid shares a store with the classic version's grid as well!
         bind: {
@@ -65,21 +65,26 @@ Ext.define('Monolith.view.main.Main', {
         }
     }, {
         title: 'Users',
+        tabName: 'users',
         iconCls: 'fa-user',
         items: [{
             xtype: 'mainlist'
         }]
     }, {
         title: 'Groups',
+        tabName: 'groups',
         iconCls: 'fa-users',
         bind: {
             html: '{loremIpsum}'
         }
     }, {
         title: 'Settings',
+        tabName: 'settings',
         iconCls: 'fa-cog',
         bind: {
             html: '{loremIpsum}'
         }
     }]
+
+
 });

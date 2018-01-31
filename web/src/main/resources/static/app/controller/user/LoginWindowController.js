@@ -14,7 +14,8 @@ Ext.define('Monolith.controller.user.LoginWindowController', {
         Ext.appInstance.setAuth(
             {
                 username: this.username.getValue(),
-                jwtToken: obj.token
+                jwtToken: obj.token,
+                authorities: obj.authorities
             });
         Ext.appInstance.authChanged();
         this.getView().enable();

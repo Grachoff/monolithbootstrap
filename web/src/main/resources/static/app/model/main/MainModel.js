@@ -8,9 +8,9 @@ Ext.define('Monolith.model.main.MainModel', {
 
     data: {
         name: 'Monolith',
-        mainText: '<div class="well">Try one of the following logins<ul><li>admin & admin</li><li>user & password</li><li>disabled & password</li></ul></div>'+
+        mainText: '<div class="well">Try one of the following logins:<ul><li>admin & admin</li><li>user & password</li><li>disabled & password</li></ul></div>'+
         '<hr/>'+
-        '<br/>Features enabled:<br/><ul><li>Freemarker template engine (see static/templates for examples)</li>' +
+        '<br/>Available features:<br/><ul><li>Freemarker template engine (see static/templates for examples)</li>' +
         '<li>Spring MVC</li>' +
         '<li>Spring data connected to PostgreSQL (dao module)</li>' +
         '<li>file storage (endpoint is FileController.java)</li>' +

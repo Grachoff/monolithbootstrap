@@ -25,3 +25,4 @@ Ext.application({
     // of merge conflicts when upgrading to new versions of Sencha Cmd.
     //-------------------------------------------------------------------------
 });
+var l = console.log;
