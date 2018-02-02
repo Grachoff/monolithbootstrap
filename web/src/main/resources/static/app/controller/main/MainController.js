@@ -36,6 +36,7 @@ Ext.define('Monolith.controller.main.MainController', {
         if (this.menuAvailability[name].includes('NONAUTH') && auth) {
             return false;
         }
+        l(auth);
         if (auth) {
             for (var i=0; i< auth.authorities.length; i++) {
                 if (this.menuAvailability[name].includes(auth.authorities[i].authority)) return true;

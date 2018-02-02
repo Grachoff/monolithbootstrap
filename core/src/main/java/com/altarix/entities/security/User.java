@@ -52,6 +52,10 @@ public class User {
     @Size(min = 4, max = 50)
     private String email;
 
+    @Column(name = "PHONE", length = 50)
+    @Size(min = 4, max = 50)
+    private String phone;
+
     @Column(name = "ENABLED")
     @NotNull
     private Boolean enabled;

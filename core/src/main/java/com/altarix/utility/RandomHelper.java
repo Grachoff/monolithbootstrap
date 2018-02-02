@@ -2,7 +2,11 @@ package com.altarix.utility;
 
 import java.util.Random;
 
-public class RandomHelper {
+public final class RandomHelper {
+
+    private RandomHelper() {
+
+    }
 
     public static String createRandomString(int len) {
         StringBuilder builderForId = new StringBuilder(len);
