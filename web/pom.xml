@@ -25,6 +25,7 @@
         <application.version.number>${project.version}</application.version.number>
         <wro4j.version>1.8.0</wro4j.version>
         <jjwt.version>0.7.0</jjwt.version>
+        <docker.image.prefix>grachoff</docker.image.prefix>
     </properties>
 
     <dependencies>
@@ -172,6 +173,17 @@
                     <annotationProcessors>
                         <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
                     </annotationProcessors>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.3.6</version>
+                <configuration>
+                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
                 </configuration>
             </plugin>
         </plugins>
