@@ -24,3 +24,4 @@ Ext.define('Monolith.model.main.MainModel', {
     }
 
 });
+                       

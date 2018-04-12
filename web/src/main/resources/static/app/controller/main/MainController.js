@@ -8,8 +8,8 @@ Ext.define('Monolith.controller.main.MainController', {
         this.redrawMenu();
     },
     onItemSelected: function (sender, record) {
-        console.log(sender);
-        console.log(record);
+        // console.log(sender);
+        // console.log(record);
         // Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
     },
 
